@@ -12,3 +12,9 @@ Python &amp; Html5(CSS,JS) => Blog
 ```python3 main.py```
 <br>
 然后请安装**main.py**的提示进行操作
+<br>
+<br>
+删除数据请运行
+<br>
+```python3 clean.py```
+<br>
