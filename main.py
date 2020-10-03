@@ -22,17 +22,27 @@ if log==0:
     conn_log=sqlite3.connect("log.db")
     cur_log=conn_log.cursor()
     cur_log.execute('''Create table Account(id int,name text,password text)''')
+    cur_log.execute('''Create table Themes(id int,name text)''')
     print("现在我们需要一些注册信息")
     user_name=str(input("User_Name:"))
     user_password=str(input("User_Password:"))
     cur_log.execute('''insert into Account Values(1,'{}','{}')'''.format(user_name,user_password))
+    cur_log.execute('''insert into Themes Values(1,'no themes')''')
     conn_log.commit()
+    cur_log.execute('select * from Themes')
+    t_name = ""
+    for t_name_out in cur_log.fetchall():
+        t_name = str(t_name_out[1])
     conn_log.close()
     account=1
     print("OK")
 elif log==1:
     conn_log = sqlite3.connect("log.db")
     cur_log = conn_log.cursor()
+    cur_log.execute('select * from Themes')
+    t_name = ""
+    for t_name_out in cur_log.fetchall():
+        t_name = str(t_name_out[1])
     print("现在我们需要一些登录信息")
     user_name_in = str(input("User_Name:"))
     user_password_in = str(input("User_Password:"))
@@ -59,14 +69,13 @@ if account!=1:
     print("Github@underthestars-zhy/PyBlog")
     print("==========================================")
     sys.exit()
-exit=False
-while exit==False:
+while True:
     os.system("clear")
     print("+++++Welcome-PyBlog!+++++")
     print("+++++++Made By UTS+++++++")
     print("Github@underthestars-zhy/PyBlog")
     print("==========================================")
-    print("0: 退出, 1: 设置, 2:主题")
+    print("0: 退出, 1: 设置, 2: 主题")
     main_set=int(input("选择："))
     if main_set==0:
         os.system("clear")
@@ -77,7 +86,7 @@ while exit==False:
         print("+++++AllSets-PyBlog!+++++")
         print("==========================================")
         print("0: Back, 1:更新账户")
-        main_set_sets = int(input("选择："))
+        main_set_sets = int(input("选择: "))
         if main_set_sets==0:
             continue
         elif main_set_sets==1:
@@ -129,14 +138,62 @@ while exit==False:
                 print("请重新登录!")
                 sys.exit()
             else:
-                print("+++++Error#2-PyBlog!+++++")
+                os.system("clear")
+                print("+++++Error#0-PyBlog!+++++")
                 print("+++++++Made By UTS+++++++")
                 print("Github@underthestars-zhy/PyBlog")
                 print("==========================================")
                 sys.exit()
         else:
-            print("+++++Error#3-PyBlog!+++++")
+            os.system("clear")
+            print("+++++Error#0-PyBlog!+++++")
             print("+++++++Made By UTS+++++++")
             print("Github@underthestars-zhy/PyBlog")
             print("==========================================")
             sys.exit()
+    elif main_set==2:
+        os.system("clear")
+        print("+++++Themes-PyBlog!+++++")
+        print("==========================================")
+        print("0: Back, 1: 修改主题, 2: 主题设置")
+        set_mian_theme=int(input("选择: "))
+        if set_mian_theme==0:
+            continue
+        elif set_mian_theme==1:
+            os.system("clear")
+            print("+++++当前主题"+t_name+"+++++")
+            print("==========================================")
+            print("0: Back 1: 修改")
+            theme_set=int(input("选择: "))
+            if theme_set==0:
+                continue
+            elif theme_set==1:
+                os.system("clear")
+                print("+++++请选择你的主题名称,注意大小写+++++")
+                print("==========================================")
+                theme_name_set=str(input("输入名称: "))
+                conn_log = sqlite3.connect("log.db")
+                cur_log = conn_log.cursor()
+                cur_log.execute("delete from Themes where id=1")
+                conn_log.commit()
+                cur_log.execute('''insert into Themes Values(1,'{}')'''.format(theme_name_set))
+                conn_log.commit()
+                conn_log.close()
+                os.system("clear")
+                print("切换完毕")
+                print("请重新登录")
+                sys.exit()
+        else:
+            os.system("clear")
+            print("+++++Error#0-PyBlog!+++++")
+            print("+++++++Made By UTS+++++++")
+            print("Github@underthestars-zhy/PyBlog")
+            print("==========================================")
+            sys.exit()
+    else:
+        os.system("clear")
+        print("+++++Error#0-PyBlog!+++++")
+        print("+++++++Made By UTS+++++++")
+        print("Github@underthestars-zhy/PyBlog")
+        print("==========================================")
+        sys.exit()
