@@ -4,6 +4,7 @@ Made by UTS
 import sqlite3
 import os
 import sys
+os.system("rm -rf __pycache__")
 os.system("rm version.txt")
 os.system('wget https://cdn.jsdelivr.net/gh/underthestars-zhy/PyBlog@master/version.txt')
 version_new_file=open('version.txt','r')
@@ -182,6 +183,44 @@ while True:
                 os.system("clear")
                 print("切换完毕")
                 print("请重新登录")
+                sys.exit()
+        elif set_mian_theme==2:
+            os.system("clear")
+            from theme_main import *
+            theme_tf_in=theme_tf()
+            if t_name=='no themes':
+                os.system("clear")
+                print("+++++Error#4-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                sys.exit()
+            if t_name!=theme_tf_in:
+                os.system("clear")
+                print("+++++Error#3-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                sys.exit()
+            if theme_main() :
+                from main_txt import *
+                com=main_txt()
+                print("+++++" + t_name + "设置+++++")
+                print("==========================================")
+                print("0: Back,"+com)
+                theme_main_set=int(input("选择: "))
+                os.system("clear")
+                from main_com import *
+                print(theme_main_com(theme_main_set))
+                main_com_set=int(input("选择: "))
+                if main_com_set==0:
+                    continue
+            else:
+                os.system("clear")
+                print("+++++Error#2-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
                 sys.exit()
         else:
             os.system("clear")
