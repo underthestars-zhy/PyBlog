@@ -5,7 +5,7 @@ Python &amp; Html5(CSS,JS) => Blog
 - 可以选择给服务器安装BT面板
 <br>
 <br>
-下载文件 https://github.com/underthestars-zhy/PyBlog/releases)
+下载文件 https://github.com/underthestars-zhy/PyBlog/releases
 <br>
 运行
 
