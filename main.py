@@ -4,6 +4,7 @@ Made by UTS
 import sqlite3
 import os
 import sys
+import time
 os.system("rm -rf __pycache__")
 os.system("rm version.txt")
 os.system('wget https://cdn.jsdelivr.net/gh/underthestars-zhy/PyBlog@master/version.txt')
@@ -15,7 +16,7 @@ os.system("clear")
 print("+++++This is PyBlog!+++++")
 print("+++++++Made By UTS+++++++")
 print("Github@underthestars-zhy/PyBlog")
-print("当前版本: Beta-2-1002145 最新版本: "+version_new)
+print("当前版本: Beta-3-10041258 最新版本: "+version_new)
 print("0: 注册, 1: 登录")
 log=int(input("输入:"))
 account=0
@@ -24,11 +25,13 @@ if log==0:
     cur_log=conn_log.cursor()
     cur_log.execute('''Create table Account(id int,name text,password text)''')
     cur_log.execute('''Create table Themes(id int,name text)''')
+    cur_log.execute('''Create table IndexD(id int,tf int)''')
     print("现在我们需要一些注册信息")
     user_name=str(input("User_Name:"))
     user_password=str(input("User_Password:"))
     cur_log.execute('''insert into Account Values(1,'{}','{}')'''.format(user_name,user_password))
     cur_log.execute('''insert into Themes Values(1,'no themes')''')
+    cur_log.execute('''insert into IndexD Values(1,0)''')
     conn_log.commit()
     cur_log.execute('select * from Themes')
     t_name = ""
@@ -80,7 +83,7 @@ while True:
     main_set=int(input("选择："))
     if main_set==0:
         os.system("clear")
-        print("++++++Bye-Bye "+user_name_in+" ++++++")
+        print("++++++Bye-Bye "+user_name_in+"++++++")
         sys.exit()
     elif main_set==1:
         os.system("clear")
@@ -207,14 +210,95 @@ while True:
                 com=main_txt()
                 print("+++++" + t_name + "设置+++++")
                 print("==========================================")
-                print("0: Back,"+com)
+                print("0: Back,1: 创建主题主文件"+com)
                 theme_main_set=int(input("选择: "))
+                if theme_main_set==0:
+                    continue
+                elif theme_main_set==1:
+                    from index import *
+                    if main_index():
+                        os.system("clear")
+                        conn_log = sqlite3.connect("log.db")
+                        cur_log = conn_log.cursor()
+                        cur_log.execute("delete from IndexD where id=1")
+                        conn_log.commit()
+                        cur_log.execute('''insert into IndexD Values(1,1)''')
+                        conn_log.commit()
+                        cur_log.execute('select * from IndexD')
+                        main_int=0
+                        for main_int_out in cur_log.fetchall():
+                            main_int = main_int_out[1]
+                        conn_log.close()
+                        if main_int==1:
+                            print("+++++OKOKOKOK-PyBlog!+++++")
+                            print("+++++++Made By UTS+++++++")
+                            print("Github@underthestars-zhy/PyBlog")
+                            print("==========================================")
+                            time.sleep(3)
+                            continue
+                        else:
+                            os.system("clear")
+                            print("+++++Error#8-PyBlog!+++++")
+                            print("+++++++Made By UTS+++++++")
+                            print("Github@underthestars-zhy/PyBlog")
+                            print("==========================================")
+                            sys.exit()
+                    else:
+                        os.system("clear")
+                        print("+++++Error#7-PyBlog!+++++")
+                        print("+++++++Made By UTS+++++++")
+                        print("Github@underthestars-zhy/PyBlog")
+                        print("==========================================")
+                        conn_log.close()
+                        sys.exit()
+                else:
+                    conn_log = sqlite3.connect("log.db")
+                    cur_log = conn_log.cursor()
+                    cur_log.execute('select * from IndexD')
+                    index_in=(1,0)
+                    index_out=0
+                    for index in cur_log.fetchall():
+                        index_out=index[1]
+                    conn_log.close()
+                    if index_out==0:
+                        os.system("clear")
+                        print("+++++Error#6-PyBlog!+++++")
+                        print("+++++++Made By UTS+++++++")
+                        print("Github@underthestars-zhy/PyBlog")
+                        print("==========================================")
+                        sys.exit()
                 os.system("clear")
                 from main_com import *
                 print(theme_main_com(theme_main_set))
                 main_com_set=int(input("选择: "))
                 if main_com_set==0:
                     continue
+                else:
+                    os.system("clear")
+                    print(int_com([theme_main_set,main_com_set]))
+                    com_type=com_input([theme_main_set,main_com_set])
+                    if com_type=="str":
+                        str_input=str(input("输入: "))
+                        main_input=[theme_main_set,main_com_set,str_input]
+                        if com_str(main_input):
+                            os.system("clear")
+                            print("OK!")
+                            time.sleep(3)
+                            continue
+                        else:
+                            os.system("clear")
+                            print("+++++Error#5-PyBlog!+++++")
+                            print("+++++++Made By UTS+++++++")
+                            print("Github@underthestars-zhy/PyBlog")
+                            print("==========================================")
+                            sys.exit()
+                    else:
+                        os.system("clear")
+                        print("+++++Error#5-PyBlog!+++++")
+                        print("+++++++Made By UTS+++++++")
+                        print("Github@underthestars-zhy/PyBlog")
+                        print("==========================================")
+                        sys.exit()
             else:
                 os.system("clear")
                 print("+++++Error#2-PyBlog!+++++")
