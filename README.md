@@ -1,7 +1,7 @@
 # PyBlog
 Python &amp; Html5(CSS,JS) => Blog
 ## 开始使用
-- 确保你的服务器安装了Python3.8
+- 确保你的服务器安装了Python3.8.5及以上的代码
 - 可以选择给服务器安装BT面板
 - 在host文件中加入GitHub加快访问代码代码
 <br>
