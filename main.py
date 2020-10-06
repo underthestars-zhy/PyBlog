@@ -276,11 +276,10 @@ while True:
                     continue
                 else:
                     os.system("clear")
-                    print(int_com([theme_main_set,main_com_set]))
                     com_type=[theme_main_set,main_com_set]
                     if com_input(com_type)=="str":
                         os.system("clear")
-                        print("==========================================")
+                        print(int_com([theme_main_set,main_com_set]))
                         str_input=str(input("输入: "))
                         main_input=[theme_main_set,main_com_set,str_input]
                         if com_str(main_input):
