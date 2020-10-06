@@ -7,7 +7,7 @@ import sys
 import time
 os.system("rm -rf __pycache__")
 os.system("rm version.txt")
-os.system('wget https://cdn.jsdelivr.net/gh/underthestars-zhy/PyBlog@master/version.txt')
+os.system('wget https://github.com/underthestars-zhy/PyBlog/raw/master/version.txt')
 version_new_file=open('version.txt','r')
 version_new=str(version_new_file.read())
 version_new_file.close()
@@ -16,7 +16,7 @@ os.system("clear")
 print("+++++This is PyBlog!+++++")
 print("+++++++Made By UTS+++++++")
 print("Github@underthestars-zhy/PyBlog")
-print("当前版本: Beta-3-10041258 最新版本: "+version_new)
+print("当前版本: Beta-4-10061058 最新版本: "+version_new)
 print("0: 注册, 1: 登录")
 log=int(input("输入:"))
 account=0
@@ -185,6 +185,7 @@ while True:
                 conn_log.close()
                 os.system("clear")
                 print("切换完毕")
+                print("==========================================")
                 print("请重新登录")
                 sys.exit()
         elif set_mian_theme==2:
@@ -210,7 +211,7 @@ while True:
                 com=main_txt()
                 print("+++++" + t_name + "设置+++++")
                 print("==========================================")
-                print("0: Back,1: 创建主题主文件"+com)
+                print("0: Back, 1: 创建主题主文件 "+com)
                 theme_main_set=int(input("选择: "))
                 if theme_main_set==0:
                     continue
@@ -276,13 +277,16 @@ while True:
                 else:
                     os.system("clear")
                     print(int_com([theme_main_set,main_com_set]))
-                    com_type=com_input([theme_main_set,main_com_set])
-                    if com_type=="str":
+                    com_type=[theme_main_set,main_com_set]
+                    if com_input(com_type)=="str":
+                        os.system("clear")
+                        print("==========================================")
                         str_input=str(input("输入: "))
                         main_input=[theme_main_set,main_com_set,str_input]
                         if com_str(main_input):
                             os.system("clear")
                             print("OK!")
+                            print("==========================================")
                             time.sleep(3)
                             continue
                         else:
