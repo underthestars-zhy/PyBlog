@@ -16,7 +16,7 @@ os.system("clear")
 print("+++++This is PyBlog!+++++")
 print("+++++++Made By UTS+++++++")
 print("Github@underthestars-zhy/PyBlog")
-print("当前版本: Beta-4-10061058 最新版本: "+version_new)
+print("当前版本: Beta-5 最新版本: "+version_new)
 print("0: 注册, 1: 登录")
 log=int(input("输入:"))
 account=0
@@ -79,7 +79,7 @@ while True:
     print("+++++++Made By UTS+++++++")
     print("Github@underthestars-zhy/PyBlog")
     print("==========================================")
-    print("0: 退出, 1: 设置, 2: 主题")
+    print("0: 退出, 1: 设置, 2: 主题, 3: 文章")
     main_set=int(input("选择："))
     if main_set==0:
         os.system("clear")
@@ -98,7 +98,7 @@ while True:
             print("+++++AllSets-PyBlog!+++++")
             print("++++++++更新账户信息++++++++")
             print("==========================================")
-            print("0:Back, 1:Nema, 2:Password")
+            print("0:Back, 1:Name, 2:Password")
             ac_set_update=int(input("选择: "))
             if ac_set_update==0:
                 continue
@@ -159,7 +159,7 @@ while True:
         os.system("clear")
         print("+++++Themes-PyBlog!+++++")
         print("==========================================")
-        print("0: Back, 1: 修改主题, 2: 主题设置")
+        print("0: Back, 1: 修改主题, 2: 主题设置, 3: About Pages")
         set_mian_theme=int(input("选择: "))
         if set_mian_theme==0:
             continue
@@ -305,6 +305,111 @@ while True:
             else:
                 os.system("clear")
                 print("+++++Error#2-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                sys.exit()
+        elif set_mian_theme == 3:
+            try:
+                import markdown
+            except:
+                os.system("clear")
+                print("+++++Error#9-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                print(">>> pip install markdown")
+                sys.exit()
+            os.system("clear")
+            print("+++++Write-PyBlog!+++++")
+            print("==========================================")
+            print("0: Back, 1: Up, 2: Write online")
+            about_set = int(input('Choose: '))
+            if about_set == 0:
+                continue
+            elif about_set == 1:
+                os.system("clear")
+                print("+++++Up About Page-PyBlog!+++++")
+                print("==========================================")
+                print("Upload your files to the current directory")
+                about_page_name = input('File Nmae: ')
+                file = open(about_page_name, 'r')
+                about_txt = str(file.read())
+                file.close()
+                from datetime import *
+                today = datetime.now()
+                if page_write('about', datetime.date(today), about_txt):
+                    os.system('clear')
+                    print("+++++Up About Page-PyBlog!+++++")
+                    print("==========================================")
+                    print("Success!")
+                    import time
+                    time.sleep(2)
+                    continue
+                else:
+                    os.system("clear")
+                    print("+++++Warning#0-PyBlog!+++++")
+                    print("+++++++Made By UTS+++++++")
+                    print("Github@underthestars-zhy/PyBlog")
+                    print("==========================================")
+                    print("Please Retry")
+                    import time
+                    time.sleep(2)
+                    continue
+            else:
+                os.system("clear")
+                print("+++++Error#0-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                sys.exit()
+        else:
+            os.system("clear")
+            print("+++++Error#0-PyBlog!+++++")
+            print("+++++++Made By UTS+++++++")
+            print("Github@underthestars-zhy/PyBlog")
+            print("==========================================")
+            sys.exit()
+    elif main_set == 3:
+        os.system("clear")
+        print("+++++Articles-PyBlog!+++++")
+        print("==========================================")
+        print("0: Back, 1: New, 2: Look")
+        article_set = int(input("Choose: "))
+        if article_set == 0:
+            continue
+        elif article_set == 1:
+            try:
+                import markdown
+            except:
+                os.system("clear")
+                print("+++++Error#9-PyBlog!+++++")
+                print("+++++++Made By UTS+++++++")
+                print("Github@underthestars-zhy/PyBlog")
+                print("==========================================")
+                print(">>> pip install markdown")
+                sys.exit()
+            os.system('clear')
+            print("+++++Write-PyBlog!+++++")
+            print("==========================================")
+            print("0: Back, 1: Up, 2: Write online")
+            write_set = int(input())
+            if write_set == 0:
+                continue
+            elif write_set == 1:
+                os.system('clear')
+                print("+++++Write-PyBlog!+++++")
+                print("==========================================")
+                print("Upload your files to the current directory")
+                article_name = input('File Nmae: ')
+                file = open(article_name, 'r')
+                article_txt = str(file.read())
+                file.close()
+                from theme_write import *
+
+            else:
+                os.system("clear")
+                print("+++++Error#0-PyBlog!+++++")
                 print("+++++++Made By UTS+++++++")
                 print("Github@underthestars-zhy/PyBlog")
                 print("==========================================")
