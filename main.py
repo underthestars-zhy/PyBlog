@@ -8,7 +8,7 @@ import time
 os.system("rm -rf __pycache__")
 os.system("rm version.txt")
 os.system('wget https://github.com/underthestars-zhy/PyBlog/raw/master/version.txt')
-version_new_file=open('version.txt','r')
+version_new_file=open('version.txt','rt')
 version_new=str(version_new_file.read())
 version_new_file.close()
 os.system("rm version.txt")
@@ -16,7 +16,8 @@ os.system("clear")
 print("+++++This is PyBlog!+++++")
 print("+++++++Made By UTS+++++++")
 print("Github@underthestars-zhy/PyBlog")
-print("当前版本: Beta-5 最新版本: "+version_new)
+print('''当前版本: Beta-5 最新版本: {0}'''.format(version_new))
+print("==========================================")
 print("0: 注册, 1: 登录")
 log=int(input("输入:"))
 account=0
@@ -79,7 +80,7 @@ while True:
     print("+++++++Made By UTS+++++++")
     print("Github@underthestars-zhy/PyBlog")
     print("==========================================")
-    print("0: 退出, 1: 设置, 2: 主题, 3: 文章")
+    print("0: 退出, 1: 设置, 2: 主题, 3: 页面")
     main_set=int(input("选择："))
     if main_set==0:
         os.system("clear")
@@ -323,19 +324,31 @@ while True:
             os.system("clear")
             print("+++++Write-PyBlog!+++++")
             print("==========================================")
-            print("0: Back, 1: Up, 2: Write online")
+            print("0: Back, 1: Upset, 2: Write online")
             about_set = int(input('Choose: '))
             if about_set == 0:
                 continue
             elif about_set == 1:
                 os.system("clear")
-                print("+++++Up About Page-PyBlog!+++++")
+                print("+++++Upset About Page-PyBlog!+++++")
                 print("==========================================")
                 print("Upload your files to the current directory")
                 about_page_name = input('File Nmae: ')
-                file = open(about_page_name, 'r')
-                about_txt = str(file.read())
-                file.close()
+                try:
+                    file = open(about_page_name + '.md', 'r')
+                    about_txt = str(file.read())
+                    file.close()
+                except:
+                    os.system("clear")
+                    print("+++++Warning#1-PyBlog!+++++")
+                    print("+++++++Made By UTS+++++++")
+                    print("Github@underthestars-zhy/PyBlog")
+                    print("==========================================")
+                    print("Please Retry")
+                    import time
+                    time.sleep(2)
+                    continue
+                from theme_write import *
                 from datetime import *
                 today = datetime.now()
                 if page_write('about', datetime.date(today), about_txt):
@@ -372,7 +385,7 @@ while True:
             sys.exit()
     elif main_set == 3:
         os.system("clear")
-        print("+++++Articles-PyBlog!+++++")
+        print("+++++Pages-PyBlog!+++++")
         print("==========================================")
         print("0: Back, 1: New, 2: Look")
         article_set = int(input("Choose: "))
@@ -401,8 +414,9 @@ while True:
                 print("+++++Write-PyBlog!+++++")
                 print("==========================================")
                 print("Upload your files to the current directory")
-                article_name = input('File Nmae: ')
-                file = open(article_name, 'r')
+                page_name = input('File Nmae: ')
+                page_url = input('File Path: ')
+                file = open(page_name, 'r')
                 article_txt = str(file.read())
                 file.close()
                 from theme_write import *
