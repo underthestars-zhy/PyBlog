@@ -1,7 +1,32 @@
 '''
 Made by UTS
 WebSite: https://uts.ski
+License: MIT license
 '''
+
+def update_page():
+    """Update Page"""
+    import sqlite3
+    conn_log = sqlite3.connect("log.db")
+    cur_log = conn_log.cursor()
+    cur_log.execute('select * from BackUp_Pages')
+    lsts = []
+    for back in cur_log.fetchall():
+        lsts.append(back)
+    conn_log.close()
+    for lst in lsts:
+        name = lst[0]
+        path_ = lst[1]
+        time_ = lst[2]
+        txt = lst[3]
+        pic_url = lst[5]
+        import theme_write as Tr
+        if Tr.page_write(name, path_, time_, txt, pic_url):
+            pass
+        else:
+            return False
+    return True
+
 def date_celebrate():
     import datetime
     month_ = int(datetime.datetime.now().month)
@@ -421,7 +446,7 @@ if __name__ == '__main__':
                     from theme_write import *
                     from datetime import *
                     today = datetime.now()
-                    if page_write('about', datetime.date(today), about_txt, about_page_pic):
+                    if page_write('about', 'about.html', datetime.date(today), about_txt, about_page_pic):
                         os.system('clear')
                         sql_1 = str(datetime.date(today))
                         sql_2 = str(markdown.markdown(about_txt))
